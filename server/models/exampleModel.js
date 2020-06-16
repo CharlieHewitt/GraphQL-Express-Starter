@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// No id required as mongoDB handles generating them
+// id not needed in model
 const exampleModel = new Schema({
   name: String
 });

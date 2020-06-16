@@ -18,8 +18,6 @@ const {
     Object Types -> Fields & types
 */
 
-// Note: replace {ExampleModel} with eg {Book} ...
-
 const ExampleModelType = new GraphQLObjectType({
   name: 'ExampleModel',
   fields: () => ({
@@ -76,7 +74,6 @@ const Mutation = new GraphQLObjectType({
   }
 });
 
-// Export schema
 module.exports = new GraphQLSchema({
   query: RootQuery,
   mutation: Mutation

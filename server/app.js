@@ -1,42 +1,44 @@
-// imports
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-// initialisation
-const app = express();
-
-// variables to be set
 const PORT = 4000;
 const CONNECTION_STRING = '';
+
+const app = express();
 
 // allow cross-origin requests
 app.use(cors());
 
-// deprecation warnings
+// suppress mongoose deprecation warnings
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 
-// insert connection string here
+// connect to MongoDB
+mongoose.connect(CONNECTION_STRING).catch(error => {
+  console.log('connection failed');
+});
 
-// connect to mongoDb
-mongoose.connect(CONNECTION_STRING);
 mongoose.connection.once('open', () => {
   console.log('connected to database');
 });
 
-// middleware to handle GraphQL requests, at /graphql endpoint
+// listen for errors
+mongoose.connection.on('error', err => {
+  console.log(err);
+});
+
+// middleware to handle GraphQL requests at /graphql
 app.use(
   '/graphql',
   graphqlHTTP({
     schema,
-    graphiql: true //  for testing
+    graphiql: true //  true for testing!
   })
 );
 
-// port number + callback for log
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT} ...`);
 });
