@@ -4,8 +4,10 @@ const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const PORT = 4000;
-const CONNECTION_STRING = '';
+// Environment Variables - using dotenv
+require('dotenv').config();
+const PORT = process.env.PORT;
+const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 const app = express();
 
