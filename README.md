@@ -7,6 +7,7 @@
 Example content:
 
 CONNECTION_STRING=...
+
 PORT=4000
 
 # Running the GraphQL server during development
